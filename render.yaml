@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: nagarsetu
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.11"
+      - key: CIVICLENS_DATA_DIR
+        value: /tmp/nagarsetu-data
+      - key: DEMO_MODE
+        value: "false"
+      - key: ADMIN_ACCESS_KEY
+        sync: false
+      - key: SIGHTENGINE_API_USER
+        sync: false
+      - key: SIGHTENGINE_API_SECRET
+        sync: false
